@@ -57,26 +57,13 @@ class Field_bootstrap_image {
         $this->CI->type->add_js('bootstrap_image', 'bootstrap-fileupload.min.js');
         $this->CI->type->add_css('bootstrap_image', 'bootstrap-fileupload.min.css');
      
-        $accept_input_html5 = null;
-
-        if (!empty($params['custom']['allowed_types']))
-        {
-            $allowed_types = explode('|', $params['custom']['allowed_types']);
-
-            foreach ($allowed_types as $type)
-            {
-                $accept_input_html5 .= ".{$type}";
-                if (next($allowed_types) == true)
-                    $accept_input_html5 .= ",";
-            }
-        }
 
         $view = $this->CI->type->load_view('bootstrap_image', 'input', array(
             'params' => $params,
             'current_file' => $current_file,
             'width' => !empty($params['custom']['resize_width']) ? $params['custom']['resize_width'] : 200,
             'height' => !empty($params['custom']['resize_height']) ? $params['custom']['resize_height'] : 150,
-            'accept_input_html5' => $accept_input_html5
+            'accept_input_html5' => 'image/*'
         ));
 
         return $view;
@@ -116,9 +103,6 @@ class Field_bootstrap_image {
         $resize_width = (isset($field->field_data['resize_width'])) ? $field->field_data['resize_width'] : null;
         $resize_height = (isset($field->field_data['resize_height'])) ? $field->field_data['resize_height'] : null;
         $keep_ratio = (isset($field->field_data['keep_ratio']) and $field->field_data['keep_ratio'] == 'yes') ? true : false;
-
-        // If you don't set allowed types, we'll set it to allow all.
-        $allowed_types = (isset($field->field_data['allowed_types'])) ? $field->field_data['allowed_types'] : '*';
 
         $return = Files::upload($field->field_data['folder'], null, $field->field_slug . '_file', $resize_width, $resize_height, $keep_ratio, $allowed_types);
 
@@ -309,21 +293,6 @@ class Field_bootstrap_image {
 
     // --------------------------------------------------------------------------
 
-    /**
-     * Param Allowed Types
-     *
-     * @access	public
-     * @param	[string - value]
-     * @return	string
-     */
-    public function param_allowed_types($value = 'jpg|jpeg|png')
-    {
-        return array(
-            'input' => form_input('allowed_types', $value),
-            'instructions' => lang('streams:bootstrap_image.allowed_types_instr'));
-    }
-
-    // --------------------------------------------------------------------------
 
     /**
      * Obvious alt attribute for <img> tags only

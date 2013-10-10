@@ -8,7 +8,9 @@
         <?php endif; ?>
     </div>
     <div>
-        <span class="btn btn-file gray"><span class="fileupload-new"><?php echo lang('streams:bootstrap_image.select') ?></span><span class="fileupload-exists"><?php echo lang('streams:bootstrap_image.change') ?></span><input name="<?= $params['form_slug'] ?>_file" type="file" accept="<?= $accept_input_html5 ?>" /></span>
+        <span class="btn btn-file gray"><span class="fileupload-new"><?php echo lang('streams:bootstrap_image.select') ?></span>
+            <span class="fileupload-exists"><?php echo lang('streams:bootstrap_image.change') ?></span>
+            <input name="<?= $params['form_slug'] ?>_file" type="file" accept="<?= $accept_input_html5 ?>" /></span>
         <a href="#" class="btn gray fileupload-exists" data-dismiss="fileupload"><?php echo lang('streams:bootstrap_image.remove') ?></a>
     </div>
 </div>
